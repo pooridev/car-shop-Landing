@@ -381,4 +381,6 @@ body {
 .footer-icon:hover{
   color:var(--mainWhite);
 }
-
+.hide {
+  display: none;
+}
