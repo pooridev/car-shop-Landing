@@ -1,11 +1,10 @@
-// Preloader
-Preloader = () => {
+// hide Preloader after page load finish
+const hidePreloader = () => {
   document.querySelector('.preloader').classList.add('hidePreloader');
-}
-window.addEventListener('load', Preloader);
+};
+window.addEventListener('load', hidePreloader);
 
-
-// Cars filtering
+// Car filtering
 const filterButtons = document.querySelectorAll('.filter-button');
 
 filterButtons.forEach(button => {
@@ -14,19 +13,24 @@ filterButtons.forEach(button => {
     const germanCars = document.querySelectorAll('[data-group="[german-car]"]');
     const americanCars = document.querySelectorAll('[data-group="[american-car]"');
 
-    category == 'all'
-      ? americanCars.forEach(americanCar => americanCar.classList.remove('hide'))
-      & germanCars.forEach(germanCar => germanCar.classList.remove('hide'))
-      : null;
-
-    category == 'american'
-      ? germanCars.forEach(germanCar => germanCar.classList.add('hide'))
-      & americanCars.forEach(americanCar => americanCar.classList.remove('hide'))
-      : null;
-
-    category == 'german'
-      ? americanCars.forEach(americanCar => americanCar.classList.add('hide'))
-      & germanCars.forEach(germanCar => germanCar.classList.remove('hide'))
-      : null;
+    switch (category) {
+      case 'all': {
+        americanCars.forEach(americanCar => americanCar.classList.remove('hide'));
+        germanCars.forEach(germanCar => germanCar.classList.remove('hide'));
+        break;
+      }
+      case 'american': {
+        germanCars.forEach(germanCar => germanCar.classList.add('hide'));
+        americanCars.forEach(americanCar => americanCar.classList.remove('hide'));
+        break;
+      }
+      case 'german': {
+        americanCars.forEach(americanCar => americanCar.classList.add('hide'))
+        germanCars.forEach(germanCar => germanCar.classList.remove('hide'));
+        break;
+      }
+      default:
+        throw new Error('should not reach out here');
+    }
   });
 });
